@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialFlowAnalysis.GUI", "MaterialFlowAnalysis.GUI\MaterialFlowAnalysis.GUI.csproj", "{A43097D3-1B12-4BCB-A43C-419D8BFD0CEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialFlowAnalysis.Core", "MaterialFlowAnalysis.Core\MaterialFlowAnalysis.Core.csproj", "{92979587-7D48-454D-90D5-B9E6EBA9ADCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A43097D3-1B12-4BCB-A43C-419D8BFD0CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A43097D3-1B12-4BCB-A43C-419D8BFD0CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A43097D3-1B12-4BCB-A43C-419D8BFD0CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A43097D3-1B12-4BCB-A43C-419D8BFD0CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92979587-7D48-454D-90D5-B9E6EBA9ADCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92979587-7D48-454D-90D5-B9E6EBA9ADCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92979587-7D48-454D-90D5-B9E6EBA9ADCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92979587-7D48-454D-90D5-B9E6EBA9ADCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,49 @@
+﻿<Window x:Class="MaterialFlowAnalysis.GUI.MFSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaterialFlowAnalysis.GUI"
+        mc:Ignorable="d"
+        Title="Параметры точки контроля" SizeToContent="Height" Width="300">
+
+    <Window.Resources>
+        <Style x:Key="RowStyle" TargetType="RowDefinition">
+            <Setter Property="Height" Value="32"></Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Style="{StaticResource RowStyle}"></RowDefinition>
+            <RowDefinition Style="{StaticResource RowStyle}"></RowDefinition>
+            <RowDefinition Style="{StaticResource RowStyle}"></RowDefinition>
+            <RowDefinition Style="{StaticResource RowStyle}"></RowDefinition>
+            <RowDefinition Style="{StaticResource RowStyle}"></RowDefinition>
+            <RowDefinition Style="{StaticResource RowStyle}"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0">Идентификатор</Label>
+        <Label Grid.Row="0" Grid.Column="1" Name="IdL" />
+        
+        <Label Grid.Row="1" Grid.Column="0">Отправной пункт</Label>
+        <Label Grid.Row="1" Grid.Column="1" Name="SourceL" />
+        
+        <Label Grid.Row="2" Grid.Column="0">Пункт назначения</Label>
+        <Label Grid.Row="2" Grid.Column="1" Name="DestinationL" />
+
+        <Label Grid.Row="3" Grid.Column="0">Объем поставок</Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="VolumeTB" />
+
+        <Label Grid.Row="4" Grid.Column="0">Стоимость поставок</Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="ValueTB" />
+        
+        <Button Grid.Row="5" Grid.Column="0" Click="Save_OnClick" >Сохранить</Button>
+        <Button Grid.Row="5" Grid.Column="1" IsCancel="True" Click="Cancel_OnClick">Отменить</Button>
+        
+    </Grid>
+</Window>

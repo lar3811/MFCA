@@ -1,0 +1,77 @@
+﻿<Window x:Class="MaterialFlowAnalysis.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaterialFlowAnalysis.GUI"
+        xmlns:entities="clr-namespace:MaterialFlowAnalysis.Core.Entities;assembly=MaterialFlowAnalysis.Core"
+        xmlns:controls="clr-namespace:MaterialFlowAnalysis.GUI.CustomControls"
+        xmlns:vms="clr-namespace:MaterialFlowAnalysis.GUI.ViewModel"
+        mc:Ignorable="d"
+        Title="Анализ материальных потоков" Height="480" Width="640">
+
+
+    <Window.Resources>
+
+        <ContextMenu x:Key="CanvasContextMenu">
+            <MenuItem Header="Добавить" Click="QC_Add_OnClick"/>
+        </ContextMenu>
+        
+        <local:CanvasItemsStyleSelector x:Key="StyleSelector"/>
+
+        <Style x:Key="QuantificationCenterStyle" x:Name="QuantificationCenterStyle">
+            <Setter Property="Canvas.Left" Value="{Binding X}"></Setter>
+            <Setter Property="Canvas.Top" Value="{Binding Y}"></Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" LastChildFill="False" Background="Beige" >
+            <Button Height="20" Width="80" DockPanel.Dock="Left" >Сохранить</Button>
+            <Button Height="20" Width="80" DockPanel.Dock="Left" >Загрузить</Button>
+            <Button Height="20" Width="80" DockPanel.Dock="Left" Click="Evaluate_OnClick">Рассчитать</Button>
+        </DockPanel>
+
+        <ItemsControl Grid.Row="1" ItemContainerStyleSelector="{StaticResource StyleSelector}" Name="ic">
+
+            <ItemsControl.Resources>
+                <CollectionViewSource x:Key="QCVMs" Source="{Binding QCVMs}"/>
+                <CollectionViewSource x:Key="MFVMs" Source="{Binding MFVMs}"/>
+                
+                <DataTemplate DataType="{x:Type vms:QuantificationCenterViewModel}">
+                    <controls:QuantificationCenterControl/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:MaterialFlowViewModel}">
+                    <Line X1="{Binding Path=Source.X}"
+                          Y1="{Binding Path=Source.Y}"
+                          X2="{Binding Path=Destination.X}"
+                          Y2="{Binding Path=Destination.Y}"
+                          Stroke="Black" StrokeThickness="3"/>
+                </DataTemplate>
+            </ItemsControl.Resources>
+            
+            <ItemsControl.ItemsSource>
+                <CompositeCollection>
+                    <CollectionContainer Collection="{Binding Source={StaticResource QCVMs}}"/>
+                    <CollectionContainer Collection="{Binding Source={StaticResource MFVMs}}"/>
+                </CompositeCollection>
+            </ItemsControl.ItemsSource>
+            
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Background="AliceBlue" MouseRightButtonDown="Canvas_OpenContextMenu"
+                            ContextMenu="{StaticResource CanvasContextMenu}"
+                            AllowDrop="True" Drop="Canvas_OnDrop"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+
+</Window>
