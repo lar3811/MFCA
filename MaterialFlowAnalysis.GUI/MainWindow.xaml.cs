@@ -31,13 +31,7 @@ namespace MaterialFlowAnalysis.GUI
         {
             var canvas = sender as Canvas;
             if (canvas == null || canvas.ContextMenu == null) return;
-
-            //if (_isSelectingMaterialFlowDestination == true)
-            //{
-            //    _isSelectingMaterialFlowDestination = false;
-            //    return;
-            //}
-
+            
             canvas.ContextMenu.IsOpen = true;
             _position = Mouse.GetPosition(canvas);
             e.Handled = true;

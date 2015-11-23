@@ -134,9 +134,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
             var qcvm = new QuantificationCenterViewModel
             {
                 Model = qc,
-                Service = Service,
-                EditCommand = new Command(EditQuantificationCenter),
-                RemoveCommand = new Command(RemoveQuantificationCenter)
+                Service = Service
             };
             QCVMs.Add(qcvm);
         }
@@ -170,29 +168,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
         public void EvaluateModel()
         {
         }
-
-        public void EditQuantificationCenter(object target)
-        {
-            //QCs = new ObservableCollection<QuantificationCenterViewModel>
-            //{
-            //    new QuantificationCenterViewModel {Model = new QuantificationCenter { X=100, Y=100 } },
-            //    new QuantificationCenterViewModel {Model = new QuantificationCenter { X=100, Y=100 }},
-            //    new QuantificationCenterViewModel {Model = new QuantificationCenter { X=100, Y=100 }},
-            //    new QuantificationCenterViewModel {Model = new QuantificationCenter { X=100, Y=100 }},
-            //};
-
-            var window = new QCSettingsWindow(target as QuantificationCenterViewModel);
-            window.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            window.ShowDialog();
-        }
-
-        public void RemoveQuantificationCenter(object target)
-        {
-            var qc = target as QuantificationCenterViewModel;
-            if (qc == null) return;
-            Service.DeleteQuantificationCenter(qc.Model);
-        }
-
+        
 
 
         private string _path = @"E:\model.dat";

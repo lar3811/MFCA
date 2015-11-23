@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CanvasItemsStyleSelector.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CustomControls\MaterialFlowControl.xaml.cs">
       <DependentUpon>MaterialFlowControl.xaml</DependentUpon>

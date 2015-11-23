@@ -19,7 +19,7 @@ namespace MaterialFlowAnalysis.Core.Entities
         public QuantificationCenter()
         {
             Waste = new MaterialFlow(this, null);
-            _name = ToString();
+            _name = "Точка контроля";
         }
 
         public readonly ObservableCollection<MaterialFlow> IncomingFlows = new ObservableCollection<MaterialFlow>();

@@ -45,7 +45,7 @@ namespace MaterialFlowAnalysis.Core.Entities
 
         public MaterialFlow()
         {
-            ;
+            MeasureUnit = "т.";
         }
 
         public override string ToString()

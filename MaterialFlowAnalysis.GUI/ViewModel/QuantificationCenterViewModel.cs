@@ -11,32 +11,39 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
     {
         private double _r;
 
-        public QuantificationCenter Model;
         public IService Service;
 
+        public QuantificationCenter Model;
+
+        public ICommand CreateFlowCommand { get; set; }
         public ICommand EditCommand { get; set; }
-        public ICommand RemoveCommand { get; set; }
-        public ICommand AddFlowCommand { get; set; }
-        
+        public ICommand DeleteCommand { get; set; }
+
         public QuantificationCenterViewModel()
         {
             R = 32;
 
-            AddFlowCommand = new Command(AddFlow_SelectSource);
+            CreateFlowCommand = new Command(CreateFlow_SelectSource);
+            EditCommand = new Command(obj =>
+            {
+                var window = new QCSettingsWindow(this) { WindowStartupLocation = WindowStartupLocation.CenterScreen };
+                window.ShowDialog();
+            });
+            DeleteCommand = new Command(obj => Service.DeleteQuantificationCenter(Model));
         }
 
-        private void AddFlow_SelectSource(object obj)
+        private void CreateFlow_SelectSource(object obj)
         {
-            Application.Current.MainWindow.MouseDown += AddFlow_SelectDestination;
+            Application.Current.MainWindow.MouseDown += CreateFlow_SelectDestination;
         }
 
-        private void AddFlow_SelectDestination(object sender, MouseButtonEventArgs e)
+        private void CreateFlow_SelectDestination(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.MouseLeftButtonDown -= AddFlow_SelectDestination;
+            Application.Current.MainWindow.MouseDown -= CreateFlow_SelectDestination;
             if (e.ChangedButton != MouseButton.Left) return;
             var destination = (e.OriginalSource as FrameworkElement).DataContext as QuantificationCenterViewModel;
             if (destination == null) return;
-            Service.CreateMaterialFlow(this.Model, destination.Model);
+            Service.CreateMaterialFlow(Model, destination.Model);
             e.Handled = true;
         }
 

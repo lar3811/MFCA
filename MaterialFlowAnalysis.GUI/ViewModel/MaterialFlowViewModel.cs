@@ -1,22 +1,21 @@
 ﻿using MaterialFlowAnalysis.Core.Entities;
 using MaterialFlowAnalysis.GUI.ViewModel.Abstract;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MaterialFlowAnalysis.GUI.ViewModel
 {
-    public class MaterialFlowViewModel : INotifyPropertyChanged
+    public class MaterialFlowViewModel : ViewModelBase<MaterialFlow>
     {
         public IService Service;
 
         public MaterialFlow Model { get; set; }
 
-        public QuantificationCenterViewModel Source { get; set; }
-        public QuantificationCenterViewModel Destination { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         public MaterialFlowViewModel(QuantificationCenterViewModel source, QuantificationCenterViewModel destination)
         {
@@ -24,20 +23,83 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
             Destination = destination;
             Source.PropertyChanged += Source_PropertyChanged;
             Destination.PropertyChanged += Destination_PropertyChanged;
+
+            EditCommand = new Command(obj =>
+            {
+                var window = new MFSettingsWindow(this) { WindowStartupLocation = WindowStartupLocation.CenterScreen };
+                window.ShowDialog();
+            });
+            DeleteCommand = new Command(obj => Service.DeleteMaterialFlow(Model));
         }
 
         private void Source_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs("Source"));
+            OnPropertyChanged("SourcePosition");
         }
 
         private void Destination_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs("Destination"));
+            OnPropertyChanged("DestinationPosition");
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public QuantificationCenterViewModel Source { get; set; }
+        public QuantificationCenterViewModel Destination { get; set; }
+
+        public Point SourcePosition { get { return new Point(Source.Model.X, Source.Model.Y); } }
+        public Point DestinationPosition { get { return new Point(Destination.Model.X, Destination.Model.Y); } }
+
+        public int Id
+        {
+            get { return Model.Id; }
+            set
+            {
+                if (Model.Id == value) return;
+                Model.Id = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double Value
+        {
+            get { return Model.Value; }
+            set
+            {
+                if (Model.Value == value) return;
+                Model.Value = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Text");
+            }
+        }
+
+        public double Volume
+        {
+            get { return Model.Volume; }
+            set
+            {
+                if (Model.Volume == value) return;
+                Model.Volume = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Text");
+            }
+        }
+
+        public string MeasureUnit
+        {
+            get { return Model.MeasureUnit; }
+            set
+            {
+                if (Model.MeasureUnit == value) return;
+                Model.MeasureUnit = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Text");
+            }
+        }
+
+        public string Text
+        {
+            get { return $"{Model.Volume} {Model.MeasureUnit}\n{Model.Value:C}"; }
+        }
     }
 }

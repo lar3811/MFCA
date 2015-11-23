@@ -10,22 +10,6 @@
         mc:Ignorable="d"
         Title="Анализ материальных потоков" Height="480" Width="640">
 
-
-    <Window.Resources>
-
-        <ContextMenu x:Key="CanvasContextMenu">
-            <MenuItem Header="Добавить" Click="QC_Add_OnClick"/>
-        </ContextMenu>
-        
-        <local:CanvasItemsStyleSelector x:Key="StyleSelector"/>
-
-        <Style x:Key="QuantificationCenterStyle" x:Name="QuantificationCenterStyle">
-            <Setter Property="Canvas.Left" Value="{Binding X}"></Setter>
-            <Setter Property="Canvas.Top" Value="{Binding Y}"></Setter>
-        </Style>
-
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -38,39 +22,42 @@
             <Button Height="20" Width="80" DockPanel.Dock="Left" Click="Evaluate_OnClick">Рассчитать</Button>
         </DockPanel>
 
-        <ItemsControl Grid.Row="1" ItemContainerStyleSelector="{StaticResource StyleSelector}" Name="ic">
 
-            <ItemsControl.Resources>
-                <CollectionViewSource x:Key="QCVMs" Source="{Binding QCVMs}"/>
-                <CollectionViewSource x:Key="MFVMs" Source="{Binding MFVMs}"/>
-                
-                <DataTemplate DataType="{x:Type vms:QuantificationCenterViewModel}">
-                    <controls:QuantificationCenterControl/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vms:MaterialFlowViewModel}">
-                    <Line X1="{Binding Path=Source.X}"
-                          Y1="{Binding Path=Source.Y}"
-                          X2="{Binding Path=Destination.X}"
-                          Y2="{Binding Path=Destination.Y}"
-                          Stroke="Black" StrokeThickness="3"/>
-                </DataTemplate>
-            </ItemsControl.Resources>
-            
-            <ItemsControl.ItemsSource>
-                <CompositeCollection>
-                    <CollectionContainer Collection="{Binding Source={StaticResource QCVMs}}"/>
-                    <CollectionContainer Collection="{Binding Source={StaticResource MFVMs}}"/>
-                </CompositeCollection>
-            </ItemsControl.ItemsSource>
-            
+
+        <ItemsControl Name="Background" ItemsSource="{Binding MFVMs}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            Background="AliceBlue" MouseRightButtonDown="Canvas_OpenContextMenu"
-                            ContextMenu="{StaticResource CanvasContextMenu}"
-                            AllowDrop="True" Drop="Canvas_OnDrop"/>
+                    <Canvas HorizontalAlignment="Stretch" Background="AliceBlue" 
+                            MouseRightButtonDown="Canvas_OpenContextMenu" AllowDrop="True" Drop="Canvas_OnDrop">
+                        <Canvas.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Добавить" Click="QC_Add_OnClick"/>
+                            </ContextMenu>
+                        </Canvas.ContextMenu>
+                    </Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:MaterialFlowControl
+                        Text="{Binding Path=Text}" 
+                        Start="{Binding Path=SourcePosition}" 
+                        End="{Binding Path=DestinationPosition}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl Name="Foreground" ItemsSource="{Binding QCVMs}" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:QuantificationCenterControl/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
 

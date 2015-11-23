@@ -6,21 +6,21 @@
              xmlns:local="clr-namespace:MaterialFlowAnalysis.GUI.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
-    <UserControl.Resources>
 
-        <ContextMenu x:Key="QCContextMenu">
-            <MenuItem Header="Добавить поток" Command="{Binding AddFlowCommand}" CommandParameter="{Binding Path=.}"/>
-            <MenuItem Header="Параметры" Command="{Binding EditCommand}" CommandParameter="{Binding Path=.}"/>
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Добавить поток" Command="{Binding CreateFlowCommand}"/>
+            <MenuItem Header="Параметры" Command="{Binding EditCommand}"/>
             <Separator/>
-            <MenuItem Header="Удалить" Command="{Binding RemoveCommand}" CommandParameter="{Binding Path=.}"/>
+            <MenuItem Header="Удалить" Command="{Binding DeleteCommand}"/>
         </ContextMenu>
-        
-    </UserControl.Resources>
-
-    <Ellipse Height="{Binding D, Mode=OneWay}" Width="{Binding D, Mode=OneWay}" 
-             Stroke="Black" StrokeThickness="2" Fill="Crimson" 
-             ContextMenu="{StaticResource QCContextMenu}"
-             MouseRightButtonDown="QC_OnMouseRightButtonDown"
-             MouseLeftButtonDown="QC_MouseLeftButtonDown"/>
+    </UserControl.ContextMenu>
+    
+    <Canvas>
+        <Ellipse Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"
+                 Height="{Binding D}" Width="{Binding D}" 
+                 Stroke="Black" StrokeThickness="2" Fill="Crimson" 
+                 MouseRightButtonDown="QC_OnMouseRightButtonDown"
+                 MouseLeftButtonDown="QC_MouseLeftButtonDown"/>
+    </Canvas>
 </UserControl>

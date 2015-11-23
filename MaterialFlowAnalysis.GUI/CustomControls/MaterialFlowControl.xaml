@@ -5,19 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:customControls="clr-namespace:MaterialFlowAnalysis.GUI.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Параметры" Command="{Binding EditCommand}"/>
+            <Separator/>
+            <MenuItem Header="Удалить" Command="{Binding DeleteCommand}"/>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
     <Canvas>
-        <Line X1="{Binding StartPoint.X}"
-              Y1="{Binding StartPoint.Y}"
-              X2="{Binding EndPoint.X}"
-              Y2="{Binding EndPoint.Y}"
-              Stroke="Blue" StrokeThickness="4"/>
-        <Polygon Points="{Binding ArrowPoints}" 
-                 Stroke="Blue" Fill="LawnGreen"/>
-        <Label Name="TextL"
-               Canvas.Left="{Binding TextPosition.X}" 
-               Canvas.Top="{Binding TextPosition.Y}"
-               Content="{Binding TextContent}"/>
+        <Line Name="Axis" Panel.ZIndex="-2"
+              Stroke="Blue" StrokeThickness="4"
+              MouseRightButtonDown="Control_MouseRightButtonDown"/>
+        <Polygon Name="Direction" Panel.ZIndex="-1"
+                 Stroke="Black" Fill="LawnGreen"
+                 MouseRightButtonDown="Control_MouseRightButtonDown"/>
+        <Label Name="Description" Panel.ZIndex="0"
+               FontFamily="TimesNewRoman" FontSize="14"
+               MouseRightButtonDown="Control_MouseRightButtonDown"/>
     </Canvas>
 </UserControl>
 

@@ -16,9 +16,8 @@ namespace MaterialFlowAnalysis.GUI.CustomControls
 
         private void QC_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var host = sender as FrameworkElement;
-            host.ContextMenu.IsOpen = true;
-            host.ContextMenu.DataContext = DataContext;
+            ContextMenu.DataContext = DataContext;
+            ContextMenu.IsOpen = true;
             e.Handled = true;
         }
         

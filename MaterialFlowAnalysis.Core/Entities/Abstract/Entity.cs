@@ -30,7 +30,7 @@ namespace MaterialFlowAnalysis.Core.Entities.Abstract
 
         public override string ToString()
         {
-            return GetType() + "." + Id;
+            return GetType().Name + ":" + Id;
         }
 
 
