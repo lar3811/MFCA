@@ -1,4 +1,5 @@
 ﻿using MaterialFlowAnalysis.Core.Entities;
+using MaterialFlowAnalysis.GUI.Repository.Abstract;
 using MaterialFlowAnalysis.GUI.ViewModel.Abstract;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

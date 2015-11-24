@@ -65,6 +65,8 @@
     <Compile Include="MFSettingsWindow.xaml.cs">
       <DependentUpon>MFSettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Abstract\IService.cs" />
+    <Compile Include="Repository\TheService.cs" />
     <Compile Include="ViewModel\Abstract\ViewModelBase.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="QCSettingsWindow.xaml.cs">

@@ -22,11 +22,6 @@ namespace MaterialFlowAnalysis.GUI
 
         private Point _position;
 
-        private void Evaluate_OnClick(object sender, RoutedEventArgs e)
-        {
-            //new SimpleEvaluationStrategy().Execute(_QCVM.Values);
-        }
-
         private void Canvas_OpenContextMenu(object sender, MouseButtonEventArgs e)
         {
             var canvas = sender as Canvas;

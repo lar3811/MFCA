@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System;
 using System.Windows;
 using MaterialFlowAnalysis.GUI.CustomControls;
+using MaterialFlowAnalysis.GUI.Repository.Abstract;
 
 namespace MaterialFlowAnalysis.GUI.ViewModel
 {

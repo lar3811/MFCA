@@ -17,9 +17,9 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" LastChildFill="False" Background="Beige" >
-            <Button Height="20" Width="80" DockPanel.Dock="Left" >Сохранить</Button>
-            <Button Height="20" Width="80" DockPanel.Dock="Left" >Загрузить</Button>
-            <Button Height="20" Width="80" DockPanel.Dock="Left" Click="Evaluate_OnClick">Рассчитать</Button>
+            <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding SaveCommand}">Сохранить</Button>
+            <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding LoadCommand}">Загрузить</Button>
+            <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding EvaluateCommand}">Рассчитать</Button>
         </DockPanel>
 
 
@@ -27,8 +27,8 @@
         <ItemsControl Name="Background" ItemsSource="{Binding MFVMs}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas HorizontalAlignment="Stretch" Background="AliceBlue" 
-                            MouseRightButtonDown="Canvas_OpenContextMenu" AllowDrop="True" Drop="Canvas_OnDrop">
+                    <Canvas Background="AliceBlue" MouseRightButtonDown="Canvas_OpenContextMenu" 
+                            AllowDrop="True" Drop="Canvas_OnDrop">
                         <Canvas.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Добавить" Click="QC_Add_OnClick"/>
@@ -50,7 +50,7 @@
         <ItemsControl Name="Foreground" ItemsSource="{Binding QCVMs}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas/>
+                    <Canvas AllowDrop="True" Drop="Canvas_OnDrop"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>

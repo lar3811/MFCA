@@ -7,119 +7,28 @@ using MaterialFlowAnalysis.Core.Entities;
 using MaterialFlowAnalysis.Core.Entities.Abstract;
 using System.Linq;
 using System.Windows;
+using MaterialFlowAnalysis.GUI.Repository.Abstract;
+using MaterialFlowAnalysis.GUI.Repository;
+using System.Windows.Input;
 
 namespace MaterialFlowAnalysis.GUI.ViewModel
 {
-    public interface IService
-    {
-        QuantificationCenter CreateQuantificationCenter(Point position);
-        IEnumerable<QuantificationCenter> RetrieveQuantificationCenter();
-        bool DeleteQuantificationCenter(QuantificationCenter obj);
-        event EventHandler<QuantificationCenter> OnQuantificationCenterCreated;
-        event EventHandler<QuantificationCenter> OnQuantificationCenterDeleted;
-
-        MaterialFlow CreateMaterialFlow(QuantificationCenter source, QuantificationCenter destination);
-        IEnumerable<MaterialFlow> RetrieveMaterialFlow();
-        bool DeleteMaterialFlow(MaterialFlow obj);
-        event EventHandler<MaterialFlow> OnMaterialFlowCreated;
-        event EventHandler<MaterialFlow> OnMaterialFlowDeleted;
-
-        event EventHandler OnModelUpdated;
-    }
-
-
-    public class TheService : IService
-    {
-        public event EventHandler OnModelUpdated;
-
-        private List<QuantificationCenter> QCs = new List<QuantificationCenter>();
-        private List<MaterialFlow> MFs = new List<MaterialFlow>();
-
-        private int index = 0;
-        
-
-
-        public QuantificationCenter CreateQuantificationCenter(Point position)
-        {
-            var newObj = new QuantificationCenter
-            {
-                Id = index++,
-                X = position.X,
-                Y = position.Y
-            };
-            QCs.Add(newObj);
-            if (OnQuantificationCenterCreated != null)
-                OnQuantificationCenterCreated(this, newObj);
-            return newObj;
-        }
-
-        public IEnumerable<QuantificationCenter> RetrieveQuantificationCenter()
-        {
-            return QCs;
-        }
-
-        public bool DeleteQuantificationCenter(QuantificationCenter obj)
-        {
-            var removed = QCs.Remove(obj);
-            if (removed == false) return false;
-            if (OnQuantificationCenterDeleted != null)
-                OnQuantificationCenterDeleted(this, obj);
-            var linkedFlows = obj.IncomingFlows.Concat(obj.OutgoingFlows).ToArray();
-            foreach (var mf in linkedFlows)
-                DeleteMaterialFlow(mf);
-            return true;
-        }
-
-        public event EventHandler<QuantificationCenter> OnQuantificationCenterCreated;
-        public event EventHandler<QuantificationCenter> OnQuantificationCenterDeleted;
-
-
-
-        public MaterialFlow CreateMaterialFlow(QuantificationCenter source, QuantificationCenter destination)
-        {
-            var newObj = new MaterialFlow
-            {
-                Id = index++,
-                Source = source,
-                Destination = destination
-            };
-            source.OutgoingFlows.Add(newObj);
-            destination.IncomingFlows.Add(newObj);
-            MFs.Add(newObj);
-            if (OnMaterialFlowCreated != null)
-                OnMaterialFlowCreated(this, newObj);
-            return newObj;
-        }
-
-        public IEnumerable<MaterialFlow> RetrieveMaterialFlow()
-        {
-            return MFs;
-        }
-
-        public bool DeleteMaterialFlow(MaterialFlow obj)
-        {
-            var removed = MFs.Remove(obj);
-            if (removed == false) return false;
-            obj.Source.OutgoingFlows.Remove(obj);
-            obj.Destination.IncomingFlows.Remove(obj);
-            if (OnMaterialFlowDeleted != null)
-                OnMaterialFlowDeleted(this, obj);
-            return true;
-        }
-
-        public event EventHandler<MaterialFlow> OnMaterialFlowCreated;
-        public event EventHandler<MaterialFlow> OnMaterialFlowDeleted;
-    }
-
     public class MainWindowViewModel
     {
         public IService Service;
+
+        public ICommand SaveCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
+        public ICommand EvaluateCommand { get; set; }
 
         public ObservableCollection<QuantificationCenterViewModel> QCVMs { get; set; }
         public ObservableCollection<MaterialFlowViewModel> MFVMs { get; set; }
 
         public MainWindowViewModel()
         {
+            SaveCommand = new Command(obj => SaveModel());
+            LoadCommand = new Command(obj => LoadModel());
+            EvaluateCommand = new Command(obj => EvaluateModel());
             QCVMs = new ObservableCollection<QuantificationCenterViewModel>();
             MFVMs = new ObservableCollection<MaterialFlowViewModel>();
             Service = new TheService();
@@ -162,31 +71,28 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
             var mfvm = MFVMs.FirstOrDefault(_mfvm => _mfvm.Model == mf);
             MFVMs.Remove(mfvm);
         }
-        
 
 
-        public void EvaluateModel()
-        {
-        }
-        
 
-
-        private string _path = @"E:\model.dat";
         public void SaveModel()
         {
-            var stream = File.Create(_path);
-            var serializer = new BinaryFormatter();
-            serializer.Serialize(stream, QCVMs);
-            stream.Close();
+            Service.SaveModel();
         }
 
         public void LoadModel()
         {
-            var stream = File.OpenRead(_path);
-            var serializer = new BinaryFormatter();
-            var loaded = (IEnumerable<QuantificationCenter>)serializer.Deserialize(stream);
-            //foreach (var qc in loaded) QCs.Add(qc);
-            stream.Close();
+            QCVMs.Clear();
+            MFVMs.Clear();
+            Service.LoadModel();
+            foreach (var qc in Service.RetrieveQuantificationCenter())
+                OnQuantificationCenterCreated(null, qc);
+            foreach (var mf in Service.RetrieveMaterialFlow())
+                OnMaterialFlowCreated(null, mf);
+        }
+
+        public void EvaluateModel()
+        {
+            Service.EvaluateFlows();
         }
     }
 }
