@@ -35,12 +35,14 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         private void Source_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            OnPropertyChanged("SourcePosition");
+            if (e.PropertyName == "X" || e.PropertyName == "Y")
+                OnPropertyChanged("SourcePosition");
         }
 
         private void Destination_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            OnPropertyChanged("DestinationPosition");
+            if (e.PropertyName == "X" || e.PropertyName == "Y")
+                OnPropertyChanged("DestinationPosition");
         }
 
 
@@ -70,7 +72,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
                 if (Model.Value == value) return;
                 Model.Value = value;
                 OnPropertyChanged();
-                OnPropertyChanged("Text");
+                OnPropertyChanged("Description");
             }
         }
 
@@ -82,7 +84,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
                 if (Model.Volume == value) return;
                 Model.Volume = value;
                 OnPropertyChanged();
-                OnPropertyChanged("Text");
+                OnPropertyChanged("Description");
             }
         }
 
@@ -94,11 +96,11 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
                 if (Model.MeasureUnit == value) return;
                 Model.MeasureUnit = value;
                 OnPropertyChanged();
-                OnPropertyChanged("Text");
+                OnPropertyChanged("Description");
             }
         }
 
-        public string Text
+        public string Description
         {
             get { return $"{Model.Volume} {Model.MeasureUnit}\n{Model.Value:C}"; }
         }

@@ -40,9 +40,9 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <controls:MaterialFlowControl
-                        Text="{Binding Path=Text}" 
-                        Start="{Binding Path=SourcePosition}" 
-                        End="{Binding Path=DestinationPosition}"/>
+                        Text="{Binding Description}" 
+                        Start="{Binding SourcePosition}" 
+                        End="{Binding DestinationPosition}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

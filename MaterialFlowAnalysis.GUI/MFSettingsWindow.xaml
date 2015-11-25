@@ -28,19 +28,19 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0">Идентификатор</Label>
-        <Label Grid.Row="0" Grid.Column="1" Name="IdL" Content="{Binding Id, Mode=OneWay}" />
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Id, Mode=OneWay}" />
         
         <Label Grid.Row="1" Grid.Column="0">Отправной пункт</Label>
-        <Label Grid.Row="1" Grid.Column="1" Name="SourceL" Content="{Binding Source.Name, Mode=OneWay}" />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Source.Name, Mode=OneWay}" />
         
         <Label Grid.Row="2" Grid.Column="0">Пункт назначения</Label>
-        <Label Grid.Row="2" Grid.Column="1" Name="DestinationL" Content="{Binding Destination.Name, Mode=OneWay}" />
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Destination.Name, Mode=OneWay}" />
 
         <Label Grid.Row="3" Grid.Column="0">Объем поставок</Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="VolumeTB" Text="{Binding Volume}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Volume}" />
 
         <Label Grid.Row="4" Grid.Column="0">Стоимость поставок</Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="ValueTB" Text="{Binding Value, StringFormat=C}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Value, StringFormat=C}" />
         
         <Button Grid.Row="5" Grid.Column="0" Click="Save_OnClick" >Сохранить</Button>
         <Button Grid.Row="5" Grid.Column="1" IsCancel="True" Click="Cancel_OnClick">Отменить</Button>

@@ -30,25 +30,25 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0">Идентификатор</Label>
-        <Label Grid.Row="0" Grid.Column="1" Name="IdL" Content="{Binding Id, Mode=OneWay}"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Id, Mode=OneWay}"/>
 
         <Label Grid.Row="1" Grid.Column="0">Название процесса</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="NameTB" Text="{Binding Name}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name}"/>
 
         <Label Grid.Row="2" Grid.Column="0">Системные расходы</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="SystemCostTB" Text="{Binding SystemCost, StringFormat=C}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SystemCost, StringFormat=C}" />
 
         <Label Grid.Row="3" Grid.Column="0">Расходы на энергию</Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="EnergyCostTB" Text="{Binding EnergyCost, StringFormat=C}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EnergyCost, StringFormat=C}"/>
 
         <Label Grid.Row="4" Grid.Column="0">Стоимость переработки отходов</Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="WasteProcessingCostTB" Text="{Binding WasteProcessingCost, StringFormat=C}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding WasteProcessingCost, StringFormat=C}"/>
 
         <Label Grid.Row="5" Grid.Column="0">Объем отходов</Label>
-        <Label Grid.Row="5" Grid.Column="1" Name="WasteVolumeL" Content="{Binding WasteVolume, Mode=OneWay}"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="{Binding WasteVolume, Mode=OneWay}"/>
 
         <Label Grid.Row="6" Grid.Column="0">Стоиомсть отходов</Label>
-        <Label Grid.Row="6" Grid.Column="1" Name="WasteValueL" Content="{Binding WasteValue, Mode=OneWay, StringFormat=C}"/>
+        <Label Grid.Row="6" Grid.Column="1" Content="{Binding WasteValue, Mode=OneWay, StringFormat=C}"/>
 
         <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsCancel="True" Click="Cancel_OnClick" Width="200" Margin="0 5">Закрыть</Button>
     </Grid>
