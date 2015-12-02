@@ -17,13 +17,13 @@
 
     <Canvas>
         <Line Name="Axis" Panel.ZIndex="-2"
-              Stroke="Blue" StrokeThickness="4"
+              Stroke="Black" StrokeThickness="4"
               MouseRightButtonDown="Control_MouseRightButtonDown"/>
         <Polygon Name="Direction" Panel.ZIndex="-1"
                  Stroke="Black" Fill="LawnGreen"
                  MouseRightButtonDown="Control_MouseRightButtonDown"/>
         <Label Name="Description" Panel.ZIndex="0"
-               FontFamily="TimesNewRoman" FontSize="14"
+               FontFamily="CourierNew" FontSize="14"
                MouseRightButtonDown="Control_MouseRightButtonDown"/>
     </Canvas>
 </UserControl>

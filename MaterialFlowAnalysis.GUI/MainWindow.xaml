@@ -54,8 +54,12 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <controls:QuantificationCenterControl/>
+                <DataTemplate DataType="vms:QuantificationCenterViewModel">
+                    <controls:QuantificationCenterControl
+                        Position="{Binding Position}"
+                        TopArrowDescription="{Binding SystemCostDescription}"
+                        BodyDescription="{Binding IdDescription}"
+                        BottomArrowDescription="{Binding WasteDescription}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

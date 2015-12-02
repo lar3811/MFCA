@@ -10,8 +10,6 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 {
     public class QuantificationCenterViewModel : ViewModelBase<QuantificationCenter>
     {
-        private double _r;
-
         public IService Service;
 
         public QuantificationCenter Model;
@@ -22,8 +20,6 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         public QuantificationCenterViewModel()
         {
-            R = 32;
-
             CreateFlowCommand = new Command(CreateFlow_SelectSource);
             EditCommand = new Command(obj =>
             {
@@ -42,40 +38,28 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
         {
             Application.Current.MainWindow.MouseDown -= CreateFlow_SelectDestination;
             if (e.ChangedButton != MouseButton.Left) return;
-            var destination = (e.OriginalSource as FrameworkElement).DataContext as QuantificationCenterViewModel;
-            if (destination == null) return;
+            var element = e.OriginalSource as FrameworkElement;
+            var destination = element.DataContext as QuantificationCenterViewModel;         // IF IT IS A CONTROL
+            if (destination == null)
+                destination = ((element.TemplatedParent as FrameworkElement)
+                                       .Parent as FrameworkElement)
+                                       .DataContext as QuantificationCenterViewModel;       // IF IT IS AN ELEMENT OF A CONTROL
+            if (destination == null)
+                return;
             Service.CreateMaterialFlow(Model, destination.Model);
             e.Handled = true;
         }
 
+        
 
-
-        public double R
+        public Point Position
         {
-            get { return _r; }
-            set { SetField(ref _r, value); }
-        }
-
-        public double D => 2*R;
-
-        public double X
-        {
-            get { return Model.X - R; }
+            get { return new Point(Model.X, Model.Y); }
             set
             {
-                if (Model.X - R == value) return;
-                Model.X = value + R;
-                OnPropertyChanged();
-            } 
-        }
-
-        public double Y
-        {
-            get { return Model.Y - R; }
-            set
-            {
-                if (Model.Y - R == value) return;
-                Model.Y = value + R;
+                if (Model.X == value.X && Model.Y == value.Y) return;
+                Model.X = value.X;
+                Model.Y = value.Y;
                 OnPropertyChanged();
             }
         }
@@ -104,6 +88,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
                 if (Model.SystemCost == value) return;
                 Model.SystemCost = value;
                 OnPropertyChanged();
+                OnPropertyChanged("SystemCostDescription");
             }
         }
 
@@ -132,13 +117,13 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
         public double WasteVolume { get { return Model.Waste.Volume; } }
 
         public double WasteValue { get { return Model.Waste.Value; } }
-        
 
 
-        public void Move(Point destination)
-        {
-            X = destination.X - R;
-            Y = destination.Y - R;
-        }
+
+        public string SystemCostDescription { get { return $"{SystemCost:C}"; } }
+
+        public string WasteDescription { get { return $"{WasteVolume} {Model.Waste.MeasureUnit}\n{WasteValue:C}"; } }
+
+        public string IdDescription { get { return $"ТК.{Id:00}"; } }
     }
 }

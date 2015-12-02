@@ -41,7 +41,7 @@ namespace MaterialFlowAnalysis.GUI
         {
             var qcvm = e.Data.GetData(typeof(QuantificationCenterViewModel)) as QuantificationCenterViewModel;
             var dragEnd = e.GetPosition(sender as Canvas);
-            qcvm.Move(dragEnd);
+            qcvm.Position = dragEnd;
         }
     }
 }

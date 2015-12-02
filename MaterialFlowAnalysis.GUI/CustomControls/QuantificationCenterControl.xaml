@@ -17,10 +17,22 @@
     </UserControl.ContextMenu>
     
     <Canvas>
-        <Ellipse Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"
-                 Height="{Binding D}" Width="{Binding D}" 
-                 Stroke="Black" StrokeThickness="2" Fill="Crimson" 
-                 MouseRightButtonDown="QC_OnMouseRightButtonDown"
-                 MouseLeftButtonDown="QC_MouseLeftButtonDown"/>
+        <Ellipse Name="Body" Panel.ZIndex="0"
+                 Stroke="Black" StrokeThickness="2" Fill="LimeGreen" />
+        <Line Name="Axis" Panel.ZIndex="-2"
+              Stroke="Black" StrokeThickness="4"/>
+        <Polygon Name="ArrowTop" Panel.ZIndex="-1"
+                 Stroke="Black" Fill="Green"
+                 MouseRightButtonDown="QC_OnMouseRightButtonDown"/>
+        <Polygon Name="ArrowBottom" Panel.ZIndex="-1"
+                 Stroke="Black" Fill="Green"
+                 MouseRightButtonDown="QC_OnMouseRightButtonDown"/>
+        <Label Name="DescriptionTop" FontFamily="CourierNew" FontSize="14"/>
+        <Label Name="DescriptionBody" FontFamily="CourierNew" FontSize="14" 
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+               MouseRightButtonDown="QC_OnMouseRightButtonDown"
+               MouseLeftButtonDown="QC_MouseLeftButtonDown">
+        </Label>
+        <Label Name="DescriptionBottom" FontFamily="CourierNew" FontSize="14"/>
     </Canvas>
 </UserControl>

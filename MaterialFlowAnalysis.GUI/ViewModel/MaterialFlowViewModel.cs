@@ -35,13 +35,13 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         private void Source_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "X" || e.PropertyName == "Y")
+            if (e.PropertyName == "Position")
                 OnPropertyChanged("SourcePosition");
         }
 
         private void Destination_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "X" || e.PropertyName == "Y")
+            if (e.PropertyName == "Position")
                 OnPropertyChanged("DestinationPosition");
         }
 
@@ -50,8 +50,8 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
         public QuantificationCenterViewModel Source { get; set; }
         public QuantificationCenterViewModel Destination { get; set; }
 
-        public Point SourcePosition { get { return new Point(Source.Model.X, Source.Model.Y); } }
-        public Point DestinationPosition { get { return new Point(Destination.Model.X, Destination.Model.Y); } }
+        public Point SourcePosition { get { return Source.Position; } }
+        public Point DestinationPosition { get { return Destination.Position; } }
 
         public int Id
         {
