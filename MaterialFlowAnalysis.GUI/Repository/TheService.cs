@@ -95,20 +95,17 @@ namespace MaterialFlowAnalysis.GUI.Repository
         public event EventHandler<MaterialFlow> OnMaterialFlowDeleted;
 
 
-
-        private string storage = @"E:\model.dat";
-
-        public void SaveModel()
+        public void SaveModel(string path)
         {
-            var stream = File.Create(storage);
+            var stream = File.Create(path);
             var serializer = new BinaryFormatter();
             serializer.Serialize(stream, QCs);
             stream.Close();
         }
 
-        public void LoadModel()
+        public void LoadModel(string path)
         {
-            var stream = File.OpenRead(storage);
+            var stream = File.OpenRead(path);
             var serializer = new BinaryFormatter();
             var loaded = (IEnumerable<QuantificationCenter>)serializer.Deserialize(stream);
             QCs.Clear();
@@ -121,7 +118,9 @@ namespace MaterialFlowAnalysis.GUI.Repository
             if (OnModelUpdated != null)
                 OnModelUpdated(this, null);
             stream.Close();
-            index = Math.Max(QCs.Max(qc => qc.Id), MFs.Max(mf => mf.Id));
+            index = Math.Max(
+                QCs.Count == 0 ? 0 : QCs.Max(qc => qc.Id), 
+                MFs.Count == 0 ? 0 : MFs.Max(mf => mf.Id));
         }
 
         public void EvaluateFlows()

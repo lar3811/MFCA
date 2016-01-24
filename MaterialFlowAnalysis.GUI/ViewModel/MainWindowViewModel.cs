@@ -78,14 +78,28 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         public void SaveModel()
         {
-            Service.SaveModel();
+            var dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.FileName = "model";
+            dialog.DefaultExt = ".dat";
+
+            var confirmed = dialog.ShowDialog();
+            if (confirmed == null || confirmed == false) return;
+
+            Service.SaveModel(dialog.FileName);
         }
 
         public void LoadModel()
         {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.FileName = "model";
+            dialog.DefaultExt = ".dat";
+
+            var confirmed = dialog.ShowDialog();
+            if (confirmed == null || confirmed == false) return;
+
             QCVMs.Clear();
             MFVMs.Clear();
-            Service.LoadModel();
+            Service.LoadModel(dialog.FileName);
             foreach (var qc in Service.RetrieveQuantificationCenter())
                 OnQuantificationCenterCreated(null, qc);
             foreach (var mf in Service.RetrieveMaterialFlow())

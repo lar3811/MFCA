@@ -22,8 +22,8 @@ namespace MaterialFlowAnalysis.GUI.Repository.Abstract
         event EventHandler<MaterialFlow> OnMaterialFlowCreated;
         event EventHandler<MaterialFlow> OnMaterialFlowDeleted;
 
-        void SaveModel();
-        void LoadModel();
+        void SaveModel(string path);
+        void LoadModel(string path);
         void EvaluateFlows();
         void Clear();
 
