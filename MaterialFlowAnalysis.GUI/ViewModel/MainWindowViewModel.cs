@@ -115,7 +115,13 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         public void ClearModel()
         {
-            Service.Clear();
+            var button = MessageBox.Show(
+                "Все несохраненные данные будут утеряны. Вы уверены, что хотите создать новую модель?",
+                "Внимание!",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (button == MessageBoxResult.Yes) Service.Clear();
         }
     }
 }

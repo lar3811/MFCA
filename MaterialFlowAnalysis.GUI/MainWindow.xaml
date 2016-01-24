@@ -17,10 +17,10 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" LastChildFill="False" Background="Beige" >
+            <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding ClearCommand}">Создать</Button>
             <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding SaveCommand}">Сохранить</Button>
             <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding LoadCommand}">Загрузить</Button>
             <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding EvaluateCommand}">Рассчитать</Button>
-            <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding ClearCommand}">Очистить</Button>
         </DockPanel>
 
 

@@ -130,9 +130,10 @@ namespace MaterialFlowAnalysis.GUI.Repository
         }
 
         public void Clear()
-        {
+        {         
             foreach (var qc in QCs.ToArray())
                 DeleteQuantificationCenter(qc);
+            index = 0;
         }
     }
 }
