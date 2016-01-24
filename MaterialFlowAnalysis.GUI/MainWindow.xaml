@@ -8,7 +8,7 @@
         xmlns:controls="clr-namespace:MaterialFlowAnalysis.GUI.CustomControls"
         xmlns:vms="clr-namespace:MaterialFlowAnalysis.GUI.ViewModel"
         mc:Ignorable="d"
-        Title="Анализ материальных потоков" Height="480" Width="640">
+        Title="Анализ материальных потоков" Height="720" Width="1280">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,6 +20,7 @@
             <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding SaveCommand}">Сохранить</Button>
             <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding LoadCommand}">Загрузить</Button>
             <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding EvaluateCommand}">Рассчитать</Button>
+            <Button Height="20" Width="80" DockPanel.Dock="Left" Command="{Binding ClearCommand}">Очистить</Button>
         </DockPanel>
 
 

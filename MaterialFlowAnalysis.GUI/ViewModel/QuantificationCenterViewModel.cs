@@ -122,7 +122,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         public string SystemCostDescription { get { return $"{SystemCost:C}"; } }
 
-        public string WasteDescription { get { return $"{WasteVolume} {Model.Waste.MeasureUnit}\n{WasteValue:C}"; } }
+        public string WasteDescription { get { return $"{WasteVolume}{Model.Waste.MeasureUnit}\n{WasteValue:C}"; } }
 
         public string IdDescription { get { return $"ТК.{Id:00}"; } }
     }

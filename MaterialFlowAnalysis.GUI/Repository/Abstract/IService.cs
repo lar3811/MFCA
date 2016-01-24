@@ -25,6 +25,7 @@ namespace MaterialFlowAnalysis.GUI.Repository.Abstract
         void SaveModel();
         void LoadModel();
         void EvaluateFlows();
+        void Clear();
 
         event EventHandler OnModelUpdated;
     }

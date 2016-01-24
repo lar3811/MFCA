@@ -16,7 +16,7 @@ namespace MaterialFlowAnalysis.Core.Entities
 
         public string MeasureUnit { get; set; }
 
-        public MaterialFlow(QuantificationCenter source, QuantificationCenter destination)
+        public MaterialFlow(QuantificationCenter source, QuantificationCenter destination) : this()
         {
             Source = source;
             Destination = destination;

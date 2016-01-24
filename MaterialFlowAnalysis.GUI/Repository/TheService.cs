@@ -19,7 +19,7 @@ namespace MaterialFlowAnalysis.GUI.Repository
         private List<QuantificationCenter> QCs = new List<QuantificationCenter>();
         private List<MaterialFlow> MFs = new List<MaterialFlow>();
 
-        private int index = 0;
+        private int index = 1;
 
 
 
@@ -121,12 +121,19 @@ namespace MaterialFlowAnalysis.GUI.Repository
             if (OnModelUpdated != null)
                 OnModelUpdated(this, null);
             stream.Close();
+            index = Math.Max(QCs.Max(qc => qc.Id), MFs.Max(mf => mf.Id));
         }
 
         public void EvaluateFlows()
         {
             var strategy = new SimpleEvaluationStrategy();
             strategy.Execute(QCs);
+        }
+
+        public void Clear()
+        {
+            foreach (var qc in QCs.ToArray())
+                DeleteQuantificationCenter(qc);
         }
     }
 }

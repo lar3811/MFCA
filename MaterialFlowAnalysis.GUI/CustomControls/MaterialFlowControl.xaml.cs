@@ -97,8 +97,8 @@ namespace MaterialFlowAnalysis.GUI.CustomControls
             UpdateTextPosition();
         }
 
-        private double tan15 = 0.268;
-        private double tan75 = 3.732;
+        private double tan05 = 0.087;
+        private double tan85 = 11.43;
 
         private void UpdateTextPosition()
         {
@@ -114,9 +114,9 @@ namespace MaterialFlowAnalysis.GUI.CustomControls
             var tan = (X2 - X1) / (Y2 - Y1);
 
             Point position;
-            if (Y2 == Y1 || (tan < tan15 && tan > -tan15))
+            if (Y2 == Y1 || (tan < tan05 && tan > -tan05))
                 position = new Point(X1 > X2 ? X1 : X2, Y1 + (Y2 - Y1) / 2 - H / 2);
-            else if (tan > tan75 || tan < -tan75)
+            else if (tan > tan85 || tan < -tan85)
                 position = new Point(X1 + (X2 - X1) / 2 - W / 2, Y1 > Y2 ? Y1 : Y2);
             else if (tan > 0)
                 position = new Point(X1 + (X2 - X1) / 2, Y1 + (Y2 - Y1) / 2 - H);

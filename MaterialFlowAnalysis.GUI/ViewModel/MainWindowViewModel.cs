@@ -20,6 +20,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
         public ICommand SaveCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand EvaluateCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
 
         public ObservableCollection<QuantificationCenterViewModel> QCVMs { get; set; }
         public ObservableCollection<MaterialFlowViewModel> MFVMs { get; set; }
@@ -29,6 +30,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
             SaveCommand = new Command(obj => SaveModel());
             LoadCommand = new Command(obj => LoadModel());
             EvaluateCommand = new Command(obj => EvaluateModel());
+            ClearCommand = new Command(obj => ClearModel());
             QCVMs = new ObservableCollection<QuantificationCenterViewModel>();
             MFVMs = new ObservableCollection<MaterialFlowViewModel>();
             Service = new TheService();
@@ -95,6 +97,11 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
             Service.EvaluateFlows();
             foreach (var qcvm in QCVMs) qcvm.OnPropertyChanged("WasteDescription");
             foreach (var mfvm in MFVMs) mfvm.OnPropertyChanged("Description");
+        }
+
+        public void ClearModel()
+        {
+            Service.Clear();
         }
     }
 }
