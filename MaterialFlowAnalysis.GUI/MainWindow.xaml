@@ -28,7 +28,7 @@
         <ItemsControl Name="Background" ItemsSource="{Binding MFVMs}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="AliceBlue" MouseRightButtonDown="Canvas_OpenContextMenu" 
+                    <Canvas Background="White" MouseRightButtonDown="Canvas_OpenContextMenu" 
                             AllowDrop="True" Drop="Canvas_OnDrop">
                         <Canvas.ContextMenu>
                             <ContextMenu>
@@ -59,8 +59,10 @@
                     <controls:QuantificationCenterControl
                         Position="{Binding Position}"
                         TopArrowDescription="{Binding SystemCostDescription}"
+                        TopArrowIsVisible="{Binding SystemCostDescriptionVisible}"
                         BodyDescription="{Binding IdDescription}"
-                        BottomArrowDescription="{Binding WasteDescription}"/>
+                        BottomArrowDescription="{Binding WasteDescription}"
+                        BottomArrowIsVisible="{Binding WasteDescriptionVisible}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

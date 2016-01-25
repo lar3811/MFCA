@@ -25,16 +25,23 @@ namespace MaterialFlowAnalysis.Core.Services
             }
 
             // Calculate general flows values
-            var unknown = _mfs.Where(mf => mf.Source.IncomingFlows.Count > 0).ToList();
-            var known = _mfs.Where(mf => mf.Source.IncomingFlows.Count == 0).ToList();
+
+            // для случая, когда известны веса опорных ребер графа
+            //var unknown = _mfs.Where(mf => mf.Source.IncomingFlows.Count > 0).ToList(); 
+            //var known = _mfs.Where(mf => mf.Source.IncomingFlows.Count == 0).ToList();
+
+            // для случая, когда известны системные затраты опорных узлов
+            var unknown = _mfs.ToList(); 
+            var known = new List<MaterialFlow>();
+
             var n = unknown.Count;
             var matrix = new double[n, n];
             var vector = new double[n];
-            
+                        
             for (var i = 0; i < n; i++)
             {
                 var source = unknown[i].Source;
-                var baseVolume = source.IncomingFlows.Sum(x => x.Volume);
+                var baseVolume = source.OutgoingFlows.Sum(x => x.Volume) + source.Waste.Volume;
                 var baseValue = known.Where(f => f.Destination == source).Sum(x => x.Value);
 
                 var k = unknown[i].Volume / baseVolume;

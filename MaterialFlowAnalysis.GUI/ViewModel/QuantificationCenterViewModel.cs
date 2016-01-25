@@ -89,6 +89,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
                 Model.SystemCost = value;
                 OnPropertyChanged();
                 OnPropertyChanged("SystemCostDescription");
+                OnPropertyChanged("SystemCostDescriptionVisible");
             }
         }
 
@@ -122,7 +123,11 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
 
         public string SystemCostDescription { get { return $"{SystemCost:C}"; } }
 
+        public bool SystemCostDescriptionVisible { get { return SystemCost > 0; } }
+
         public string WasteDescription { get { return $"{WasteVolume}{Model.Waste.MeasureUnit}\n{WasteValue:C}"; } }
+
+        public bool WasteDescriptionVisible { get { return WasteVolume > 0; } }
 
         public string IdDescription { get { return $"ТК.{Id:00}"; } }
     }

@@ -109,7 +109,7 @@ namespace MaterialFlowAnalysis.GUI.ViewModel
         public void EvaluateModel()
         {
             Service.EvaluateFlows();
-            foreach (var qcvm in QCVMs) qcvm.OnPropertyChanged("WasteDescription");
+            foreach (var qcvm in QCVMs) qcvm.OnPropertyChanged("WasteDescription", "WasteDescriptionVisible");
             foreach (var mfvm in MFVMs) mfvm.OnPropertyChanged("Description");
         }
 

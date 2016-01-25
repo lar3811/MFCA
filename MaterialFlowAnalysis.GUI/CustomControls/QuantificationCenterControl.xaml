@@ -19,20 +19,28 @@
     <Canvas>
         <Ellipse Name="Body" Panel.ZIndex="0"
                  Stroke="Black" StrokeThickness="2" Fill="LimeGreen" />
-        <Line Name="Axis" Panel.ZIndex="-2"
-              Stroke="Black" StrokeThickness="4"/>
+        <Line Name="AxisTop" Panel.ZIndex="-2"
+              Stroke="Black" StrokeThickness="4"
+              Visibility="Hidden"/>
+        <Line Name="AxisBottom" Panel.ZIndex="-2"
+              Stroke="Black" StrokeThickness="4"
+              Visibility="Hidden"/>
         <Polygon Name="ArrowTop" Panel.ZIndex="-1"
                  Stroke="Black" Fill="Green"
-                 MouseRightButtonDown="QC_OnMouseRightButtonDown"/>
+                 MouseRightButtonDown="QC_OnMouseRightButtonDown"
+                 Visibility="Hidden"/>
         <Polygon Name="ArrowBottom" Panel.ZIndex="-1"
                  Stroke="Black" Fill="Green"
-                 MouseRightButtonDown="QC_OnMouseRightButtonDown"/>
-        <Label Name="DescriptionTop" FontFamily="CourierNew" FontSize="14"/>
+                 MouseRightButtonDown="QC_OnMouseRightButtonDown"
+                 Visibility="Hidden"/>
+        <Label Name="DescriptionTop" FontFamily="CourierNew" FontSize="14"
+               Visibility="Hidden"/>
         <Label Name="DescriptionBody" FontFamily="CourierNew" FontSize="14" 
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                MouseRightButtonDown="QC_OnMouseRightButtonDown"
                MouseLeftButtonDown="QC_MouseLeftButtonDown">
         </Label>
-        <Label Name="DescriptionBottom" FontFamily="CourierNew" FontSize="14"/>
+        <Label Name="DescriptionBottom" FontFamily="CourierNew" FontSize="14"
+               Visibility="Hidden"/>
     </Canvas>
 </UserControl>

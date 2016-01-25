@@ -18,15 +18,18 @@ namespace MaterialFlowAnalysis.GUI.ViewModel.Abstract
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        
+        public virtual void OnPropertyChanged(params string[] args)
+        {
+            foreach (var prop in args)
+                OnPropertyChanged(prop);
+        }
 
         public bool SetField<T>(ref T field, T value, [CallerMemberName] string name = null)
         {
             if (Equals(field, value)) return false;
-
             field = value;
-
             OnPropertyChanged(name);
-
             return true;
         }
     }

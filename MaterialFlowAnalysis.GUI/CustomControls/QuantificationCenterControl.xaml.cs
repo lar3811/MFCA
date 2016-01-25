@@ -57,6 +57,27 @@ namespace MaterialFlowAnalysis.GUI.CustomControls
 
 
 
+        public bool TopArrowIsVisible
+        {
+            get { return (bool)GetValue(TopArrowIsVisibleProperty); }
+            set { SetValue(TopArrowIsVisibleProperty, value); }
+        }
+        
+        public static readonly DependencyProperty TopArrowIsVisibleProperty =
+            DependencyProperty.Register("TopArrowIsVisible", typeof(bool), typeof(QuantificationCenterControl),
+                new FrameworkPropertyMetadata(default(bool), FrameworkPropertyMetadataOptions.AffectsRender, ToggleTopArrow));
+
+        public static void ToggleTopArrow(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            var control = obj as QuantificationCenterControl;
+            var value = (bool)args.NewValue ? Visibility.Visible : Visibility.Hidden;
+            control.ArrowTop.Visibility = value;
+            control.AxisTop.Visibility = value;
+            control.DescriptionTop.Visibility = value;
+        }
+
+
+
         public string BodyDescription
         {
             get { return (string)GetValue(BodyDescriptionProperty); }
@@ -78,7 +99,28 @@ namespace MaterialFlowAnalysis.GUI.CustomControls
         public static readonly DependencyProperty BottomArrowDescriptionProperty =
             DependencyProperty.Register("BottomArrowDescription", typeof(string), typeof(QuantificationCenterControl),
                 new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.AffectsRender, UpdateText));
+
         
+
+        public bool BottomArrowIsVisible
+        {
+            get { return (bool)GetValue(BottomArrowIsVisibleProperty); }
+            set { SetValue(BottomArrowIsVisibleProperty, value); }
+        }
+        
+        public static readonly DependencyProperty BottomArrowIsVisibleProperty =
+            DependencyProperty.Register("BottomArrowIsVisible", typeof(bool), typeof(QuantificationCenterControl), 
+                new FrameworkPropertyMetadata(default(bool), FrameworkPropertyMetadataOptions.AffectsRender, ToggleBottomArrow));
+
+        public static void ToggleBottomArrow(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            var control = obj as QuantificationCenterControl;
+            var value = (bool)args.NewValue ? Visibility.Visible : Visibility.Hidden;
+            control.ArrowBottom.Visibility = value;
+            control.AxisBottom.Visibility = value;
+            control.DescriptionBottom.Visibility = value;
+        }
+
 
 
         public static void UpdateText(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -103,9 +145,13 @@ namespace MaterialFlowAnalysis.GUI.CustomControls
             Canvas.SetLeft(DescriptionBody, Position.X - radius);
             Canvas.SetTop(DescriptionBody, Position.Y - radius);
 
-            Axis.X1 = Axis.X2 = Position.X;
-            Axis.Y1 = Position.Y - radius - arrowAxisLength;
-            Axis.Y2 = Position.Y + radius + arrowAxisLength;
+            AxisTop.X1 = AxisTop.X2 = Position.X;
+            AxisBottom.X1 = AxisBottom.X2 = Position.X;
+
+            AxisBottom.Y1 = Position.Y + radius + arrowAxisLength;
+            AxisBottom.Y2 = Position.Y;
+            AxisTop.Y1 = Position.Y - radius - arrowAxisLength;
+            AxisTop.Y2 = Position.Y;
 
             var y = Position.Y - radius - arrowLength;
             var topArrowPoints = new PointCollection(new[] {
